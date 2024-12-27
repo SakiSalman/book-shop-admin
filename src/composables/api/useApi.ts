@@ -1,26 +1,27 @@
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import axios, { AxiosError } from 'axios';
-
+import api from '../../../config/api.json'
 interface ApiResponse<T> {
     data: T | null;
     loading: boolean;
     error: string | null;
 }
 
-export function useApi<T>(url: string, token?: string) {
+export function useApi<T>(token?: string) {
     const data = ref<T | null>(null);
     const loading = ref<boolean>(false);
     const error = ref<string | null>(null);
+    const serverURL = inject<string>('serverURL');
 
     const getHeaders = (isFormData: boolean = false): Record<string, string> => ({
         'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {})
     });
 
-    const fetchData = async (): Promise<void> => {
+    const fetchData = async (url:string): Promise<void> => {
         loading.value = true;
         try {
-            const response = await axios.get(url, {
+            const response = await axios.get(`${serverURL}/api/v1/${url}`, {
                 headers: getHeaders()
             });
             data.value = response.data;
@@ -32,8 +33,10 @@ export function useApi<T>(url: string, token?: string) {
             loading.value = false;
         }
     };
-
-    const createData = async (payload: Record<string, any>, isFormData: boolean = false): Promise<void> => {
+    
+    const createData = async (
+        { url, payload, isFormData = false }: { url: string; payload: Record<string, any>; isFormData?: boolean }
+    ): Promise<any> => {  
         loading.value = true;
         try {
             let formData: FormData | Record<string, any> = payload;
@@ -43,7 +46,35 @@ export function useApi<T>(url: string, token?: string) {
                     formData.append(key, payload[key]);
                 });
             }
-            const response = await axios.post(url, formData, {
+            const response = await axios.post(`${serverURL}/api/v1/${url}`, formData, {
+                headers: getHeaders(isFormData),
+            });
+    
+            data.value = response.data;
+            error.value = null;
+    
+            return response; 
+        } catch (err) {
+            const axiosError = err as AxiosError;
+            error.value = axiosError.response ? JSON.stringify(axiosError.response.data) : axiosError.message;
+            return axiosError.response || err; 
+        } finally {
+            loading.value = false;
+        }
+    };
+    
+
+    const updateData = async (url: string | number, payload: Record<string, any>, isFormData: boolean = false): Promise<void> => {
+        loading.value = true;
+        try {
+            let formData: FormData | Record<string, any> = payload;
+            if (isFormData && !(payload instanceof FormData)) {
+                formData = new FormData();
+                Object.keys(payload).forEach((key) => {
+                    formData.append(key, payload[key]);
+                });
+            }
+            const response = await axios.put(`${serverURL}/api/v1/${url}`, formData, {
                 headers: getHeaders(isFormData)
             });
             data.value = response.data;
@@ -56,33 +87,10 @@ export function useApi<T>(url: string, token?: string) {
         }
     };
 
-    const updateData = async (id: string | number, payload: Record<string, any>, isFormData: boolean = false): Promise<void> => {
+    const deleteData = async (url: string | number): Promise<void> => {
         loading.value = true;
         try {
-            let formData: FormData | Record<string, any> = payload;
-            if (isFormData && !(payload instanceof FormData)) {
-                formData = new FormData();
-                Object.keys(payload).forEach((key) => {
-                    formData.append(key, payload[key]);
-                });
-            }
-            const response = await axios.put(`${url}/${id}`, formData, {
-                headers: getHeaders(isFormData)
-            });
-            data.value = response.data;
-            error.value = null;
-        } catch (err) {
-            const axiosError = err as AxiosError;
-            error.value = axiosError.response ? JSON.stringify(axiosError.response.data) : axiosError.message;
-        } finally {
-            loading.value = false;
-        }
-    };
-
-    const deleteData = async (id: string | number): Promise<void> => {
-        loading.value = true;
-        try {
-            await axios.delete(`${url}/${id}`, {
+            await axios.delete(`${serverURL}/api/v1/${url}`, {
                 headers: getHeaders()
             });
             error.value = null;
@@ -101,6 +109,7 @@ export function useApi<T>(url: string, token?: string) {
         fetchData,
         createData,
         updateData,
-        deleteData
+        deleteData,
+        api
     };
 }

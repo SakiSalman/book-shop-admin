@@ -84,6 +84,11 @@ import OverViewCard from '@/components/Cards/OverViewCard.vue';
 import OverViewCardWithCurrency from '@/components/Cards/OverViewCardWithCurrency.vue';
 import CommonTable from '@/components/tables/CommonTable.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
+import useGlobalStore from '@/composables/globalStore/useGlobalStore';
+
+const {globalState} = useGlobalStore()
+
+console.log(globalState)
 </script>
 
 <style scoped></style>

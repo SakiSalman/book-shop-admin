@@ -1,4 +1,10 @@
 {
-    "HOST_URL": "http://localhost:5173/",
-    "SERVER_URL": ""
+    "LocalHost" : {
+        "HOST_URL": "http://localhost:5173",
+        "SERVER_URL": "http://127.0.0.1:8080"
+    },
+    "prod" : {
+        "HOST_URL": "http://localhost:5173",
+        "SERVER_URL": ""
+    }
 }

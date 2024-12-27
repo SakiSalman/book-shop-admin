@@ -6,8 +6,7 @@
             <div>
                 <form v-on:submit="handleLogin" class="block">
                     <div class="grid grid-cols-1 gap-4">
-                        <InputField type="email" v-model="email" placeholder="example@example.com" :required="true"
-                            message="Field Is Required!">
+                        <InputField type="email" v-model="email" placeholder="example@example.com" :required="true">
                             <template #icon>
                                 <span class="text-gray-500"><i class="bx bx-envelope text-gray-500"></i></span>
                             </template>
@@ -18,7 +17,7 @@
                             </template>
                         </PasswordField>
                         <div>
-                            <Button type="submit" label="Sign in"></Button>
+                            <Button type="submit" :label="loading ? 'Processing...' : 'Sign in'"></Button>
                         </div>
                     </div>
 
@@ -38,12 +37,13 @@ import { useRouter } from 'vue-router';
 import InputField from '@/components/Inputs/InputField.vue';
 import Button from '@/components/buttons/ButtonStyleOne.vue';
 import PasswordField from '@/components/Inputs/PasswordField.vue';
-import { inject } from 'vue';
+import useToast from '@/composables/utils/useToast';
+import useGlobalStore from '@/composables/globalStore/useGlobalStore';
+import type { User } from '@/models/UserModels';
 interface LoginForm {
     email: string;
     password: string;
 }
-const api = inject('api');
 const email = ref('');
 const password = ref('');
 const requiredFields = [
@@ -51,24 +51,37 @@ const requiredFields = [
     { key: 'password', value: 'Password' }
 ]
 
-const { errors, validateForm } = useFormValidation(requiredFields);
-const { createData, loading, error } = useApi('');
+const { validateForm } = useFormValidation(requiredFields);
+const { createData, loading, api } = useApi('');
 const router = useRouter();
-
+const { success, error } = useToast()
+const {globalState, updateGlobalStore} = useGlobalStore()
 const handleLogin = async (e: any) => {
     e.preventDefault();
     const formData: LoginForm = {
         email: email.value,
         password: password.value
     };
-    console.log("formData", formData)
     if (!validateForm(formData)) return;
-
     try {
-        await createData(formData);
-        router.push('/');
-    } catch (err) {
-        errors.value.general = error.value || 'Login failed.';
+        const res = await createData({
+            url: api.loginApi,
+            payload: formData,
+        });
+        if (res.status === 201) {
+            console.log(res.data)
+            success(res?.data?.message)
+            localStorage.setItem('user', JSON.stringify(res?.data?.data))
+            localStorage.setItem('token', res?.data?.data?.token)
+            updateGlobalStore({
+                user : res?.data as User
+            })
+            router.push('/');
+        } else {
+            error(res?.data?.message ?? "Failed!")
+        }
+    } catch (err: any) {
+        error(err?.message ?? "")
     }
 };
 </script>
