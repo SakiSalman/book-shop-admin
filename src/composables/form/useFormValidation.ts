@@ -39,7 +39,9 @@ export function useFormValidation(requiredFields: Field[]) {
 
         return Object.keys(errors.value).length === 0;
     };
-
+    function doPasswordsMatch(password1: string, password2: string): boolean {
+        return password1 === password2;
+      }
     const resetErrors = (): void => {
         errors.value = {};
     };
@@ -48,6 +50,7 @@ export function useFormValidation(requiredFields: Field[]) {
         errors,
         loading,
         validateForm,
-        resetErrors
+        resetErrors,
+        doPasswordsMatch
     };
 }

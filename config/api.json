@@ -1,3 +1,5 @@
 {
-    "loginApi":"auth/login"
+    "loginApi":"auth/login",
+    "sendVerificationCode":"auth/send-verification",
+    "resetPassword":"auth/reset-password"
 }

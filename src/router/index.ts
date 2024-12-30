@@ -1,15 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/pages/Login.vue';
-import Dashboard from '@/pages/Dashboard.vue';
-import { useGuard } from '@/composables';
-import SalesDasboard from '@/pages/SalesDasboard.vue';
+import { useGuard, useGuestGuard } from '@/composables/guards/useAuthGuard';
+import Dashboard from '@/pages/Dashboard/Dashboard.vue';
+import SalesDasboard from '@/pages/Dashboard/SalesDasboard.vue';
 import ProductList from '@/pages/Products/ProductList.vue';
 import EditProduct from '@/pages/Products/edit/EditProduct.vue';
 import AddProduct from '@/pages/Products/add/AddProduct.vue';
 import ProductDetails from '@/pages/Products/product-details/ProductDetails.vue';
+import Login from '@/pages/auth/Login.vue';
+import ForgotPassword from '@/pages/auth/ForgotPassword.vue';
+import ResetPassword from '@/pages/auth/ResetPassword.vue';
 
 const routes = [
-    { path: '/login', component: Login },
+    { path: '/login', component: Login, beforeEnter: useGuestGuard },
+    { path: '/forgot-password', component: ForgotPassword, beforeEnter: useGuestGuard },
+    { path: '/reset-password', component: ResetPassword, beforeEnter: useGuestGuard },
     { path: '/', component: Dashboard, beforeEnter: useGuard },
     { path: '/sales-dashboard', component: SalesDasboard, beforeEnter: useGuard },
     { path: '/products', component: ProductList, beforeEnter: useGuard },
