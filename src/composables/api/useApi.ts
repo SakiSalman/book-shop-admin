@@ -1,6 +1,7 @@
 import { inject, ref } from 'vue';
 import axios, { AxiosError } from 'axios';
 import api from '../../../config/api.json'
+import useToast from '../utils/useToast';
 interface ApiResponse<T> {
     data: T | null;
     loading: boolean;
@@ -12,7 +13,7 @@ export function useApi<T>(token?: string) {
     const loading = ref<boolean>(false);
     const error = ref<string | null>(null);
     const serverURL = inject<string>('serverURL');
-
+    
     const getHeaders = (isFormData: boolean = false): Record<string, string> => ({
         'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {})

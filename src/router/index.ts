@@ -9,6 +9,7 @@ import ProductDetails from '@/pages/Products/product-details/ProductDetails.vue'
 import Login from '@/pages/auth/Login.vue';
 import ForgotPassword from '@/pages/auth/ForgotPassword.vue';
 import ResetPassword from '@/pages/auth/ResetPassword.vue';
+import AppSettings from '@/pages/CMS/AppSettings/AppSettings.vue';
 
 const routes = [
     { path: '/login', component: Login, beforeEnter: useGuestGuard },
@@ -20,6 +21,10 @@ const routes = [
     { path: '/products/edit/:id', component: EditProduct, beforeEnter: useGuard },
     { path: '/products/add', component: AddProduct, beforeEnter: useGuard },
     { path: '/product-details/:id', component: ProductDetails, beforeEnter: useGuard },
+
+    // CMS ROUTES
+
+    { path: '/cms/app-settings', component: AppSettings, beforeEnter: useGuard },
 ];
 
 const router = createRouter({

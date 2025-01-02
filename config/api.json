@@ -1,5 +1,8 @@
 {
     "loginApi":"auth/login",
     "sendVerificationCode":"auth/send-verification",
-    "resetPassword":"auth/reset-password"
+    "resetPassword":"auth/reset-password",
+    "CMS" : {
+        "app-settings": "/cms/app-settings"
+    }
 }

@@ -52,6 +52,19 @@ const menu = [
             },
         ],
     },
+    {
+        sectionName: "CMS",
+        items: [
+            {
+                id: 1,
+                name: "App Setttings",
+                icon: "<i class='bx bxs-devices'></i>",
+                path: "/cms/app-settings",
+                items: [
+                ],
+            },
+        ],
+    },
 
 ];
 
