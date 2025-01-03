@@ -53,7 +53,7 @@ const requiredFields = [
 ]
 
 const { validateForm, doPasswordsMatch} = useFormValidation(requiredFields);
-const { createData, loading, api } = useApi('');
+const { createData, loading, api } = useApi();
 const router = useRouter();
 const route = useRoute()
 const { success, error } = useToast()

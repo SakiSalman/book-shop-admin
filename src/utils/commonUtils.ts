@@ -8,3 +8,13 @@ export const goRoute = (path:string) => {
         alert('path not defined!')
     }
 }
+
+
+export const getToken = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        return token
+    }else{
+        return null
+    }
+}

@@ -3,6 +3,6 @@
     "sendVerificationCode":"auth/send-verification",
     "resetPassword":"auth/reset-password",
     "CMS" : {
-        "app-settings": "/cms/app-settings"
+        "appSettings": "cms/app-settings"
     }
 }

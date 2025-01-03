@@ -4,12 +4,12 @@ import { ref } from 'vue';
 import './styles/main.css'
 const app = createApp(App);
 
-/* Configure Sweetalert */
+/* Configure Sweet alert */
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 app.use(VueSweetalert2);
-/* Configure Sweetalert */
+/* Configure Sweet alert */
 
 /* Configure the Host URL and Server URL */
 import server from '../config/server.json';
@@ -34,5 +34,7 @@ import router from './router';
 
 app.use(router);
 /* Configure Vue Router */
+
+
 
 app.mount('#app');

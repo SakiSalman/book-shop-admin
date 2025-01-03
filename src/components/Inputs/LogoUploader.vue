@@ -16,7 +16,7 @@
                 :src="convertFilPreview(imageList)" 
                 alt="Uploaded Image" 
             />
-            <div @click="handleRemove()" class="absolute top-1 right-1 text-red-500 cursor-pointer">
+            <div @click="handleRemove" class="absolute top-1 right-1 text-red-500 cursor-pointer">
                 <span><i class='bx bxs-trash'></i></span>
             </div>
         </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type PropType } from "vue";
+import { ref, watch, type PropType } from "vue";
 import useToast from "@/composables/utils/useToast";
 import { convertFilPreview } from "@/utils/convertFilePreview";
 
@@ -41,16 +41,28 @@ const props = defineProps({
         default: null,
     },
     updateList: {
-        type: Function as PropType<(updatedImages: File | String | null) => void>,
+        type: Function as PropType<(updatedImages: string | File | null | undefined) => void>,
         required: true,
     },
+    isLoading : {
+        type : Boolean,
+        default : false
+    }
 });
 
-const imageList = ref<File | String | null>(props.images ? props.images : props.defaultImage);
-const handleRemove = () =>{
-    imageList.value = null
-    props.updateList(imageList.value)
-}
+// Reactive state for the image list
+const imageList = ref<string | File | null | undefined>(props.images || props.defaultImage);
+
+// Watch the `images` prop for changes and update `imageList` accordingly
+watch(() => props.images, (newVal) => {
+    imageList.value = newVal || props.defaultImage;
+}, { immediate: true });
+
+const handleRemove = () => {
+    imageList.value = null;
+    props.updateList(imageList.value); // Notify the parent component
+};
+
 const handleAddNewImage = (e: Event) => {
     const target = e.target as HTMLInputElement;
 
@@ -69,9 +81,8 @@ const handleAddNewImage = (e: Event) => {
         }
 
         const previewUrl = URL.createObjectURL(file); // Generate the preview URL
-        imageList.value = previewUrl; // Push the URL (string) directly into the array
-        props.updateList(imageList.value as string) // Notify the parent component
+        imageList.value = previewUrl; // Update the local state
+        props.updateList(file); // Notify the parent component with the actual file
     }
 };
-
 </script>

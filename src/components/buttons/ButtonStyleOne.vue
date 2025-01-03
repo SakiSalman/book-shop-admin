@@ -12,15 +12,15 @@
     </button>
 </template>
 
-<script setup>
-defineProps({
+<script setup lang="ts">
+const props = defineProps({
     label: {
         type: [String, Boolean],
         default: false,
     },
     type: {
-        type: String,
-        default: "",
+        type: String as () => "button" | "submit" | "reset",
+        default: "button",
     },
     disabled: {
         type: Boolean,

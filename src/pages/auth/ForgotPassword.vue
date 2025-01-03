@@ -47,7 +47,7 @@ const requiredFields = [
 ]
 
 const { validateForm } = useFormValidation(requiredFields);
-const { createData, loading, api } = useApi('');
+const { createData, loading, api } = useApi();
 const router = useRouter();
 const { success, error } = useToast()
 const handleLogin = async (e: any) => {

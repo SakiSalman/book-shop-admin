@@ -2,18 +2,13 @@ import { inject, ref } from 'vue';
 import axios, { AxiosError } from 'axios';
 import api from '../../../config/api.json'
 import useToast from '../utils/useToast';
-interface ApiResponse<T> {
-    data: T | null;
-    loading: boolean;
-    error: string | null;
-}
-
-export function useApi<T>(token?: string) {
+import { getToken } from '@/utils/commonUtils';
+export function useApi<T>() {
     const data = ref<T | null>(null);
     const loading = ref<boolean>(false);
     const error = ref<string | null>(null);
     const serverURL = inject<string>('serverURL');
-    
+    const token = getToken()
     const getHeaders = (isFormData: boolean = false): Record<string, string> => ({
         'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {})
@@ -25,8 +20,7 @@ export function useApi<T>(token?: string) {
             const response = await axios.get(`${serverURL}/api/v1/${url}`, {
                 headers: getHeaders()
             });
-            data.value = response.data;
-            error.value = null;
+            return response.data
         } catch (err) {
             const axiosError = err as AxiosError;
             error.value = axiosError.response ? JSON.stringify(axiosError.response.data) : axiosError.message;
