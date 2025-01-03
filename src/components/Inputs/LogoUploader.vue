@@ -83,6 +83,7 @@ const handleAddNewImage = (e: Event) => {
         const previewUrl = URL.createObjectURL(file); // Generate the preview URL
         imageList.value = previewUrl; // Update the local state
         props.updateList(file); // Notify the parent component with the actual file
+         target.value = ""
     }
 };
 </script>
