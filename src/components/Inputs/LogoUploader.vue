@@ -4,7 +4,7 @@
         <div class="w-[120px] h-[120px] rounded-md border border-gray-300">
             <label for="upload" class="w-full h-full flex justify-center items-center cursor-pointer">
                 <input id="upload" type="file" hidden @change="handleAddNewImage" accept="image/*,image/svg+xml">
-                <p>Upload</p>
+                <p>150X65</p>
             </label>
         </div>
 

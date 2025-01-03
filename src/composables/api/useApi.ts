@@ -1,11 +1,11 @@
-import { inject, ref } from 'vue';
+import { inject, reactive, ref } from 'vue';
 import axios, { AxiosError } from 'axios';
 import api from '../../../config/api.json'
 import useToast from '../utils/useToast';
 import { getToken } from '@/utils/commonUtils';
 export function useApi<T>() {
     const data = ref<T | null>(null);
-    const loading = ref<boolean>(false);
+    const loading = ref<Boolean>(false);
     const error = ref<string | null>(null);
     const serverURL = inject<string>('serverURL');
     const token = getToken()
