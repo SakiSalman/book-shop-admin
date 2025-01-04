@@ -11,9 +11,8 @@
                         <div class="flex items-center gap-2">
                             <button
                                 class="flex justify-center items-center bg-white shadow-sm rounded-md p-3 w-[40px] h-[40px] text-xl cursor-pointer hover:bg-slate-200"
-                                @click="getAppSettingsCMS"
-                                >
-                                <span>
+                                @click="getAppSettingsCMS">
+                                <span :class="loading ? 'animate-spin duration-700' : ''">
                                     <i title="Refresh" class="bx bx-refresh"></i>
                                 </span>
                             </button>
@@ -22,7 +21,7 @@
                 </div>
             </div>
             <div v-if="loading">
-                <AppSettingLoadingUI/>
+                <AppSettingLoadingUI />
             </div>
             <section v-else class="p-3 bg-white shadow-sm grid grid-cols-1 gap-8">
                 <div class="grid grid-cols-1 gap-2">
@@ -36,9 +35,9 @@
                     </div>
                     <hr class="my-4">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        <RangeInput label="Desktop Logo Size" :max="150" :min="80" :step="5"
+                        <RangeInput label="Desktop Logo Width" :max="150" :min="80" :step="5"
                             v-model="dataList.desktopLogoWidth" :value="dataList.desktopLogoWidth" />
-                        <RangeInput label="Mobile Logo Size" :max="150" :min="80" :step="5"
+                        <RangeInput label="Mobile Logo Width" :max="150" :min="80" :step="5"
                             v-model="dataList.mobileLogoWidth" :value="dataList.mobileLogoWidth" />
                     </div>
                     <hr class="my-4">
@@ -74,7 +73,7 @@ import { useApi } from '@/composables';
 import useToast from '@/composables/utils/useToast';
 import RangeInput from '@/components/Inputs/RangeInput.vue';
 import AppSettingLoadingUI from './AppSettingLoadingUI.vue';
-const { fetchData, api, createData, loading} = useApi()
+const { fetchData, api, createData, loading } = useApi()
 const { error, warning, success } = useToast()
 // variables
 let dataList = reactive<AppSettingsModel>({
@@ -86,7 +85,6 @@ let dataList = reactive<AppSettingsModel>({
     secondaryColor: '#050402',
     grayBg: '#f1f2f4',
 });
-console.log(loading.value)
 const updateList = (list: string | File | null | undefined) => {
     dataList = {
         ...dataList,
@@ -102,14 +100,18 @@ const getAppSettingsCMS = async () => {
     try {
         const res: any = await fetchData(api.CMS.appSettings);
         if (res?.statusCode === 200) {
-            const updatedData = res.data as AppSettingsModel;
-            dataList.logo = updatedData.logo || dataList.logo;
-            dataList.primaryColor = updatedData.primaryColor || dataList.primaryColor;
-            dataList.secondaryColor = updatedData.secondaryColor || dataList.secondaryColor;
-            dataList.grayBg = updatedData.grayBg || dataList.grayBg;
-            dataList.textColor = updatedData.textColor || dataList.textColor;
-            dataList.desktopLogoWidth = updatedData.desktopLogoWidth || dataList.desktopLogoWidth;
-            dataList.mobileLogoWidth = updatedData.mobileLogoWidth || dataList.mobileLogoWidth;
+            const updatedData = res?.data as AppSettingsModel;
+
+            if (updatedData) {
+                dataList.logo = updatedData?.logo || dataList?.logo;
+                dataList.primaryColor = updatedData?.primaryColor || dataList?.primaryColor;
+                dataList.secondaryColor = updatedData?.secondaryColor || dataList?.secondaryColor;
+                dataList.grayBg = updatedData?.grayBg || dataList?.grayBg;
+                dataList.textColor = updatedData?.textColor || dataList?.textColor;
+                dataList.desktopLogoWidth = updatedData?.desktopLogoWidth || dataList?.desktopLogoWidth;
+                dataList.mobileLogoWidth = updatedData?.mobileLogoWidth || dataList?.mobileLogoWidth;
+            }
+
         } else {
             error(res?.message);
         }
