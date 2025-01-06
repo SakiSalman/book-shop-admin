@@ -63,6 +63,14 @@ const menu = [
                 items: [
                 ],
             },
+            {
+                id: 2,
+                name: "Header Footer",
+                icon: "<i class='bx bxs-devices'></i>",
+                path: "/cms/header-footer-cms",
+                items: [
+                ],
+            },
         ],
     },
 

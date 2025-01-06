@@ -10,6 +10,7 @@ import Login from '@/pages/auth/Login.vue';
 import ForgotPassword from '@/pages/auth/ForgotPassword.vue';
 import ResetPassword from '@/pages/auth/ResetPassword.vue';
 import AppSettings from '@/pages/CMS/AppSettings/AppSettings.vue';
+import HeaderFooterCMS from '@/pages/CMS/HeaderFooterCMS/HeaderFooterCMS.vue';
 
 const routes = [
     { path: '/login', component: Login, beforeEnter: useGuestGuard },
@@ -25,6 +26,7 @@ const routes = [
     // CMS ROUTES
 
     { path: '/cms/app-settings', component: AppSettings, beforeEnter: useGuard },
+    { path: '/cms/header-footer-cms', component: HeaderFooterCMS, beforeEnter: useGuard },
 ];
 
 const router = createRouter({

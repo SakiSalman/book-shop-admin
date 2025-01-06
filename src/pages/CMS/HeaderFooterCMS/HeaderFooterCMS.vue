@@ -3,8 +3,8 @@
         <section class="grid grid-cols-1 gap-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <h1>App Settings</h1>
-                    <p>Customize Your App</p>
+                    <h1>Header Footer CMS</h1>
+                    <p>Customize Your Header and Footer</p>
                 </div>
                 <div>
                     <div class="flex flex-col md:flex-row justify-end gap-2 items-center">
@@ -21,24 +21,15 @@
                 </div>
             </div>
             <div v-if="loading">
-                <AppSettingLoadingUI />
+                <CmsLoadingUI />
             </div>
             <section v-else class="p-3 bg-white shadow-sm grid grid-cols-1 gap-8">
                 <div class="grid grid-cols-1 gap-2">
-                    <div>
-                        <label for="upload" class="flex items-center cursor-pointer mb-1">
-                            App Logo
-                        </label>
-                        <LogoUploader :updateList="updateList" :defaultImage="dataList.logo" :images="dataList.logo"
-                            :isLoading="loading" />
-
-                    </div>
-                    <hr class="my-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        <RangeInput label="Desktop Logo Width" :max="150" :min="80" :step="5"
-                            v-model="dataList.desktopLogoWidth" :value="dataList.desktopLogoWidth" />
-                        <RangeInput label="Mobile Logo Width" :max="150" :min="80" :step="5"
-                            v-model="dataList.mobileLogoWidth" :value="dataList.mobileLogoWidth" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+                        <InputField label="Search Input Placeholder" placeholeder="type here.."
+                            v-model="dataList.searchPlaceholder" />
+                        <InputField label="Search Button Text" placeholeder="type here.."
+                            v-model="dataList.searchButtonText" />
                     </div>
                     <hr class="my-4">
                 </div>
@@ -46,11 +37,13 @@
                 <div>
                     <h5 class="mb-2">Color palette</h5>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
-                        <ColorPicker label="Primary Color" v-model="dataList.primaryColor" />
-                        <ColorPicker label="Secondary Color" v-model="dataList.secondaryColor" />
-                        <ColorPicker label="Text Color" v-model="dataList.textColor" />
-                        <ColorPicker label="Gray Color" v-model="dataList.grayBg" />
+                        <ColorPicker label="Header Background Color" v-model="dataList.headerBgColor" />
+                        <ColorPicker label="Footer Background Color" v-model="dataList.footerBgColor" />
                     </div>
+                </div>
+                <div>
+                    <TextAreaField label="Copyright Text" placeholeder="type here.."
+                        v-model="dataList.copyrightText" />
                 </div>
                 <div>
                     <ButtonStyleOne type="submit" :label="loading ? 'Updating' : 'Save'" :disabled="loading"
@@ -65,32 +58,25 @@
 <script setup lang="ts">
 import ButtonStyleOne from '@/components/buttons/ButtonStyleOne.vue';
 import ColorPicker from '@/components/Inputs/ColorPicker.vue';
-import LogoUploader from '@/components/Inputs/LogoUploader.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
-import type { AppSettingsModel } from '@/models/CMS/AppSettingsModel';
 import { onMounted, reactive, ref } from 'vue';
 import { useApi } from '@/composables';
 import useToast from '@/composables/utils/useToast';
-import RangeInput from '@/components/Inputs/RangeInput.vue';
 import AppSettingLoadingUI from '@/components/LoadingUI/AppSettingLoadingUI.vue';
+import InputField from '@/components/Inputs/InputField.vue';
+import type { HeaderFooterModel } from '@/models/CMS/HeaderFooterCMS';
+import TextAreaField from '@/components/Inputs/TextAreaField.vue';
+import CmsLoadingUI from '@/components/LoadingUI/CmsLoadingUI.vue';
 const { fetchData, api, createData, loading } = useApi()
 const { error, warning, success } = useToast()
 // variables
-let dataList = reactive<AppSettingsModel>({
-    logo: '/images/products/expire-product-01.2a163a06.png',
-    primaryColor: '#b8070a',
-    textColor: '#050505',
-    desktopLogoWidth: 150,
-    mobileLogoWidth: 80,
-    secondaryColor: '#050402',
-    grayBg: '#f1f2f4',
+let dataList = reactive<HeaderFooterModel>({
+    searchPlaceholder: null,
+    searchButtonText: null,
+    headerBgColor: null,
+    footerBgColor: null,
+    copyrightText: null,
 });
-const updateList = (list: string | File | null | undefined) => {
-    dataList = {
-        ...dataList,
-        logo: list
-    }
-}
 
 onMounted(() => {
     getAppSettingsCMS()
@@ -98,18 +84,16 @@ onMounted(() => {
 
 const getAppSettingsCMS = async () => {
     try {
-        const res: any = await fetchData(api.CMS.appSettings);
+        const res: any = await fetchData(api.CMS.headerFooterCMS);
         if (res?.statusCode === 200) {
-            const updatedData = res?.data as AppSettingsModel;
+            const updatedData = res?.data?.[0] as HeaderFooterModel;
 
             if (updatedData) {
-                dataList.logo = updatedData?.logo || dataList?.logo;
-                dataList.primaryColor = updatedData?.primaryColor || dataList?.primaryColor;
-                dataList.secondaryColor = updatedData?.secondaryColor || dataList?.secondaryColor;
-                dataList.grayBg = updatedData?.grayBg || dataList?.grayBg;
-                dataList.textColor = updatedData?.textColor || dataList?.textColor;
-                dataList.desktopLogoWidth = updatedData?.desktopLogoWidth || dataList?.desktopLogoWidth;
-                dataList.mobileLogoWidth = updatedData?.mobileLogoWidth || dataList?.mobileLogoWidth;
+                dataList.searchPlaceholder = updatedData?.searchPlaceholder || dataList.searchPlaceholder
+                dataList.searchButtonText = updatedData?.searchButtonText || dataList?.searchButtonText
+                dataList.headerBgColor = updatedData?.headerBgColor || dataList?.headerBgColor
+                dataList.footerBgColor = updatedData?.footerBgColor || dataList?.footerBgColor
+                dataList.copyrightText = updatedData?.copyrightText || dataList?.copyrightText
             }
 
         } else {
@@ -125,8 +109,7 @@ const handleSaveSettings = async () => {
     try {
         const res = await createData({
             payload: dataList,
-            url: api.CMS.appSettings,
-            isFormData: true
+            url: api.CMS.headerFooterCMS,
         })
 
         if (res.status === 201) {
