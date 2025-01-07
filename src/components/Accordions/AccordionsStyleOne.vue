@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-1" :class="wrapperClass">
-        <div class="grid grid-cols-1 gap-3">
+        <div class="grid grid-cols-1 gap-3 p-3 rounded-md" :class="active ? titleWrapActiveClass : 'bg-primarySlate'">
             <div class="flex justify-between items-center gap-3 cursor-pointer" @click="handleActive">
                 <div class="flex items-center gap-2 text-base font-semibold" :class="titleWrapClass, active ? titleWrapActiveClass : ''">
                     <span class="flex justify-center items-center" :class="iconClass"><slot name="icon" /></span>
@@ -25,7 +25,7 @@
         </div>
         <div
             ref="content"
-            :style="{ maxHeight: active ? `${contentHeight}px` : '0' }"
+            :style="{ maxHeight: active ? `${contentHeight <= 400 ? 400 : contentHeight}px` : '0' }"
             class="overflow-hidden overflow-y-auto transition-all duration-300 ease-in-out]"
         >
             <div ref="slotContent" class="mt-3">
