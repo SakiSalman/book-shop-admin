@@ -58,7 +58,7 @@
                                 />
                                 <router-link to="/product"
                                     ><p
-                                        class="truncate max-w-fit text-xs md:text-sm hover:text-primaryOrange"
+                                        class="truncate max-w-fit text-xs md:text-sm hover:text-primary"
                                     >
                                         Red Premium Handy
                                     </p></router-link
@@ -85,7 +85,7 @@
                         >
                             <div class="flex items-center gap-2">
                                 <button
-                                    class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-blue-500 hover:text-white transition-all duration-700"
+                                    class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primary hover:text-white transition-all duration-700"
                                 >
                                     <i class="bx bxs-edit"></i>
                                 </button>

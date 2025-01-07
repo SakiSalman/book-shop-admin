@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="h-[1px] w-full bg-slate-100"></div>
+            <div class="h-[1px] w-full bg-primarySlate"></div>
         </div>
         <div
             ref="content"

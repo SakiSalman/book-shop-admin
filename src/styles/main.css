@@ -7,11 +7,12 @@
     font-family: "Nunito", sans-serif;
 }
 :root {
-  --primary-color: #ff9f43;
+  --primary-color: #0e7490;
   --primary-black-color:#1b2850;
   --primary-blue-color:#1b2850;
   --secondary-black-color:#67748e;
   --primary-green-color:#00733b;
+  --primary-slate-color:#f1f5f9;
 }
 p{
     color: var(--secondary-black-color);

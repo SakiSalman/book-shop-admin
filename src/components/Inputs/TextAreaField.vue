@@ -6,7 +6,7 @@
       </label>
       <div
         :class="`flex flex-col w-full appearance-none outline-0 text-black disabled:!opacity-25 transition-all duration-300 ease-in-out border
-        border-[#d1d0d0] hover:ring-1 hover:ring-orange-300 disabled:!border-zinc-500 focus:border-zinc-200 focus:bg-transparent text-lg rounded-lg px-1.5 py-2 ${wrapperClass}`"
+        border-[#d1d0d0] hover:ring-1 hover:ring-primary disabled:!border-zinc-500 focus:border-zinc-200 focus:bg-transparent text-lg rounded-lg px-1.5 py-2 ${wrapperClass}`"
       >
         <!-- Textarea Field -->
         <textarea

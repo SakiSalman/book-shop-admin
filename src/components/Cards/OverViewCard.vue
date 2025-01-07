@@ -37,7 +37,7 @@
     },
     bgColor: {
       type: String,
-      default: 'bg-primaryOrange'
+      default: 'bg-primary'
     },
     textColor: {
       type: String,

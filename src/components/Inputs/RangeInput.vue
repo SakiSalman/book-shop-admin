@@ -12,10 +12,10 @@
           :step="step"
           v-model="currentValue"
           @input="handleInput"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
         />
         <div
-          class="absolute top-1/2 left-0 h-2 -translate-y-1/2 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg"
+          class="absolute top-1/2 left-0 h-2 -translate-y-1/2 bg-gradient-to-r from-primary to-blue-700 rounded-lg"
           :style="{ width: `${percentage}%` }"
         ></div>
       </div>

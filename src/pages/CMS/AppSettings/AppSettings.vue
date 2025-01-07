@@ -34,11 +34,15 @@
 
                     </div>
                     <hr class="my-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         <RangeInput label="Desktop Logo Width" :max="150" :min="80" :step="5"
                             v-model="dataList.desktopLogoWidth" :value="dataList.desktopLogoWidth" />
                         <RangeInput label="Mobile Logo Width" :max="150" :min="80" :step="5"
                             v-model="dataList.mobileLogoWidth" :value="dataList.mobileLogoWidth" />
+                        <RangeInput label="Desktop Footer Logo Width" :max="150" :min="80" :step="5"
+                            v-model="dataList.desktopFooterLogoWidth" :value="dataList.desktopFooterLogoWidth" />
+                        <RangeInput label="Mobile Footer Logo Width" :max="150" :min="80" :step="5"
+                            v-model="dataList.mobileFooterLogoWidth" :value="dataList.mobileFooterLogoWidth" />
                     </div>
                     <hr class="my-4">
                 </div>
@@ -82,6 +86,8 @@ let dataList = reactive<AppSettingsModel>({
     textColor: '#050505',
     desktopLogoWidth: 150,
     mobileLogoWidth: 80,
+    desktopFooterLogoWidth: 150,
+    mobileFooterLogoWidth: 80,
     secondaryColor: '#050402',
     grayBg: '#f1f2f4',
 });
@@ -110,6 +116,8 @@ const getAppSettingsCMS = async () => {
                 dataList.textColor = updatedData?.textColor || dataList?.textColor;
                 dataList.desktopLogoWidth = updatedData?.desktopLogoWidth || dataList?.desktopLogoWidth;
                 dataList.mobileLogoWidth = updatedData?.mobileLogoWidth || dataList?.mobileLogoWidth;
+                dataList.desktopFooterLogoWidth = updatedData?.desktopFooterLogoWidth || dataList?.desktopFooterLogoWidth;
+                dataList.mobileFooterLogoWidth = updatedData?.mobileFooterLogoWidth || dataList?.mobileFooterLogoWidth;
             }
 
         } else {

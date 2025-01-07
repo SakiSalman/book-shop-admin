@@ -31,7 +31,7 @@ const handleLogout = () => {
     <header class="py-3 px-4 shadow-sm bg-white sticky top-0">
         <div class="grid grid-cols-12 gap-5">
             <div @click="() => toggleSidebar()" class="col-span-1 flex justify-center items-center md:hidden">
-                <span class="text-2xl text-primaryOrange"><i class='bx bx-menu-alt-left' ></i></span>
+                <span class="text-2xl text-primary"><i class='bx bx-menu-alt-left' ></i></span>
             </div>
             <div class="col-span-7 md:col-span-5">
                 <InputField
@@ -100,18 +100,18 @@ const handleLogout = () => {
                                 <ul class="grid grid-cols-1 min-w-[160px] py-5">
                                     <router-link
                                         to="/profile"
-                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primaryOrange duration-700 transition-colors"
+                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primary duration-700 transition-colors"
                                         ><i class="bx bx-user"></i>My
                                         Profile</router-link
                                     >
                                     <router-link
                                         to="/settings"
-                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primaryOrange duration-700 transition-colors"
+                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primary duration-700 transition-colors"
                                         ><i class="bx bx-cog"></i>
                                         Settings</router-link
                                     >
                                     <button
-                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primaryOrange duration-700 transition-colors text-red-500 hover:text-white"
+                                        class="flex gap-1 items-center px-3 py-1 hover:bg-primary duration-700 transition-colors text-red-500 hover:text-white"
                                         @click='handleLogout'
                                     >
                                         <i class="bx bx-log-out"></i>Log out

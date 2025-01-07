@@ -63,7 +63,7 @@ console.log(lsit)
             </div>
             <div class="bg-white rounded-sm border border-slate-200 shadow-sm p-5 grid grid-cols-1 gap-5">
                 <AccordionsStyleOne
-                iconClass="text-primaryOrange"
+                iconClass="text-primary"
                 defaultOpen
                 title="Product Information"
                 >
@@ -104,7 +104,7 @@ console.log(lsit)
                     </template>
                 </AccordionsStyleOne>
                 <AccordionsStyleOne
-                iconClass="text-primaryOrange"
+                iconClass="text-primary"
                 defaultOpen
                 title="Pricing & Stocks"
                 >
@@ -139,7 +139,7 @@ console.log(lsit)
                     </template>
                 </AccordionsStyleOne>
                 <AccordionsStyleOne
-                iconClass="text-primaryOrange"
+                iconClass="text-primary"
                 defaultOpen
                 title="Images"
                 >

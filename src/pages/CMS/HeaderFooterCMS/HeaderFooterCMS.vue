@@ -39,6 +39,7 @@
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
                         <ColorPicker label="Header Background Color" v-model="dataList.headerBgColor" />
                         <ColorPicker label="Footer Background Color" v-model="dataList.footerBgColor" />
+                        <ColorPicker label="Copyright text Color" v-model="dataList.footerCopyrightColor" />
                     </div>
                 </div>
                 <div>
@@ -75,6 +76,7 @@ let dataList = reactive<HeaderFooterModel>({
     searchButtonText: null,
     headerBgColor: null,
     footerBgColor: null,
+    footerCopyrightColor: null,
     copyrightText: null,
 });
 
@@ -93,6 +95,7 @@ const getAppSettingsCMS = async () => {
                 dataList.searchButtonText = updatedData?.searchButtonText || dataList?.searchButtonText
                 dataList.headerBgColor = updatedData?.headerBgColor || dataList?.headerBgColor
                 dataList.footerBgColor = updatedData?.footerBgColor || dataList?.footerBgColor
+                dataList.footerCopyrightColor = updatedData?.footerCopyrightColor || dataList?.footerCopyrightColor
                 dataList.copyrightText = updatedData?.copyrightText || dataList?.copyrightText
             }
 

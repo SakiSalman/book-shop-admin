@@ -79,7 +79,7 @@ const hadndleFilter = () => {
                     <div class="flex justify-end gap-3 items-center">
                         <div>
                             <button @click="hadndleFilter"
-                                class="flex justify-center items-center bg-primaryOrange shadow-sm rounded-md p-3 w-[40px] h-[40px] text-xl cursor-pointer hover:bg-slate-200 text-white hover:text-primaryOrange">
+                                class="flex justify-center items-center bg-primary shadow-sm rounded-md p-3 w-[40px] h-[40px] text-xl cursor-pointer hover:bg-slate-200 text-white hover:text-primary">
                                 <span class="flex justify-center items-center"><i class="bx bx-filter-alt"></i></span>
                             </button>
                         </div>
@@ -200,7 +200,7 @@ const hadndleFilter = () => {
                                         <img src="/images/products/expire-product-01.2a163a06.png" alt=""
                                             class="w-16 h-16 object-cover" />
                                         <router-link to="/product">
-                                            <p class="truncate max-w-fit text-xs md:text-sm hover:text-primaryOrange">
+                                            <p class="truncate max-w-fit text-xs md:text-sm hover:text-primary">
                                                 Red Premium Handy
                                             </p>
                                         </router-link>
@@ -219,12 +219,12 @@ const hadndleFilter = () => {
                                     <div class="flex items-center gap-2">
                                         <router-link
                                             to="/product-details/1"
-                                            class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primaryOrange hover:text-white transition-all duration-700">
+                                            class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primary hover:text-white transition-all duration-700">
                                             <i class='bx bx-low-vision'></i>
                                         </router-link>
                                         <router-link
                                             to="/products/edit/1"
-                                            class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-blue-500 hover:text-white transition-all duration-700">
+                                            class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primary hover:text-white transition-all duration-700">
                                             <i class="bx bxs-edit"></i>
                                         </router-link>
                                         <button

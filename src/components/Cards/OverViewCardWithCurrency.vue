@@ -49,7 +49,7 @@
     },
     iconColor: {
       type: String,
-      default: 'text-primaryOrange'
+      default: 'text-primary'
     }
   });
   </script>
