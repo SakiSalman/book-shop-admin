@@ -27,13 +27,29 @@ const menu = [
         ],
     },
     {
-        sectionName: "Inventory",
+        sectionName: "Shop",
         items: [
             {
                 id: 1,
                 name: "Product",
                 icon: "<i class='bx bxs-cube' ></i>",
                 path: "/products",
+                items: [
+                ],
+            },
+            {
+                id: 2,
+                name: "Categories",
+                icon: "<i class='bx bxs-cube' ></i>",
+                path: "/categories",
+                items: [
+                ],
+            },
+            {
+                id: 3,
+                name: "Authors",
+                icon: "<i class='bx bxs-cube' ></i>",
+                path: "/authors",
                 items: [
                 ],
             },
