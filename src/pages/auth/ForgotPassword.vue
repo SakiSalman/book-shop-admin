@@ -38,11 +38,12 @@ import Button from '@/components/buttons/ButtonStyleOne.vue';
 import useToast from '@/composables/utils/useToast';
 import useGlobalStore from '@/composables/globalStore/useGlobalStore';
 import type { User } from '@/models/UserModels';
+import type { Field } from '@/models/CommonModels';
 interface ResetForm {
     email: string;
 }
 const email = ref('');
-const requiredFields = [
+const requiredFields:Field[] = [
     { key: 'email', value: 'Email' },
 ]
 

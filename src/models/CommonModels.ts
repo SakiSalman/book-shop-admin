@@ -8,3 +8,8 @@ export interface GlobalInterface {
     loading : boolean
     user : User | null
 }
+
+export interface Field {
+    key: string;
+    value: string;
+}

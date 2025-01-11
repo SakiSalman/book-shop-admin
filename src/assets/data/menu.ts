@@ -41,7 +41,7 @@ const menu = [
                 id: 2,
                 name: "Categories",
                 icon: "<i class='bx bxs-cube' ></i>",
-                path: "/categories",
+                path: "/shop/categories",
                 items: [
                 ],
             },

@@ -5,5 +5,9 @@
     "CMS" : {
         "appSettings": "cms/app-settings",
         "headerFooterCMS": "cms/header-footer-cms"
+    },
+    "shop" : {
+        "categories" : "categories",
+        "categoryFormData" : "categories/form-data"
     }
 }
