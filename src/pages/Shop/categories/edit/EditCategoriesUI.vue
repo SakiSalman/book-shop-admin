@@ -11,8 +11,11 @@ import type { Field } from '@/models/CommonModels';
 import type { CategoryItemModel } from '@/models/Products/CategoryModels';
 import router from '@/router';
 import { onMounted, reactive, ref, watch } from 'vue';
-const { fetchData, api, loading, handleSubmit } = useApi()
+import { useRoute } from 'vue-router';
+const { fetchData, api, loading, handleUpdate } = useApi()
 const { success, warning, error } = useToast()
+const route = useRoute()
+const apiURL = api.shop.categories+'/'+ route.params.id as string
 const requiredFields: Field[] = [
     {
         key: "name",
@@ -37,11 +40,11 @@ const updateList = (list: string | File | null | undefined) => {
     }
 }
 
-const getAllCategories = async () => {
+const getCategoryDetails = async () => {
     try {
-        const res: any = await fetchData(api.shop.categoryFormData);
-        if (res?.data) {
-            formData.value = res.data
+        const res: any = await fetchData(apiURL);
+        if (res?.data?._id) {
+            Object.assign(dataList, res.data)
         }
     } catch (error) {
         console.log("no data found!")
@@ -49,16 +52,15 @@ const getAllCategories = async () => {
 }
 const handleSubmitData = async () => {
     try {
-        const res = await handleSubmit({
+        const res = await handleUpdate({
             isFormData: true,
             payload: dataList,
             requiredFields: requiredFields,
-            url: api.shop.categories,
+            url: apiURL
         });
-        if (res?.status === 201) {
+        if (res?.status === 200) {
             dataList = res?.data?.data;
             success(res?.data?.message);
-            window.location.reload();
         } else {
             warning(res?.message || res?.data?.message);
         }
@@ -68,7 +70,11 @@ const handleSubmitData = async () => {
 };
 
 onMounted(() => {
-    getAllCategories()
+    if (route?.params?.id as string) {
+    getCategoryDetails();
+    }else{
+        router.push('/shop/categories')
+    }
 })
 
 </script>
@@ -94,7 +100,9 @@ onMounted(() => {
             <div class="bg-white rounded-sm border border-slate-200 shadow-sm p-5 grid grid-cols-1 gap-5">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
                             <InputField label="Name" placeholder="Type here..." required
-                                v-model="dataList.name" />
+                                v-model="dataList.name"/>
+                            <InputField label="Slug" placeholder="Type here..."
+                                v-model="dataList.slug" :disable="true"/>
                             <div class="md:col-span-3">
                                 <TextAreaField label="Description" placeholeder="type here.."
                                     v-model="dataList.description" />
@@ -114,7 +122,7 @@ onMounted(() => {
                         </div>
                 <!-- submit buttons -->
                 <div class="flex justify-center md:justify-end items-center">
-                    <ButtonStyleOne :isLoading="loading as boolean" label="Add Category" :onclick="handleSubmitData" />
+                    <ButtonStyleOne :isLoading="loading as boolean" label="Update Category" :onclick="handleSubmitData" />
                 </div>
             </div>
         </section>

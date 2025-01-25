@@ -46,6 +46,14 @@ const menu = [
                 ],
             },
             {
+                id: 2,
+                name: "Tags",
+                icon: "<i class='bx bxs-cube' ></i>",
+                path: "/shop/tags",
+                items: [
+                ],
+            },
+            {
                 id: 3,
                 name: "Authors",
                 icon: "<i class='bx bxs-cube' ></i>",

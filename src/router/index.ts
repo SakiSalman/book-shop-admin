@@ -13,6 +13,10 @@ import AppSettings from '@/pages/CMS/AppSettings/AppSettings.vue';
 import HeaderFooterCMS from '@/pages/CMS/HeaderFooterCMS/HeaderFooterCMS.vue';
 import CategoriesUI from '@/pages/Shop/categories/CategoriesUI.vue';
 import AddCategoriesUI from '@/pages/Shop/categories/add/AddCategoriesUI.vue';
+import EditCategoriesUI from '@/pages/Shop/categories/edit/EditCategoriesUI.vue';
+import TagUI from '@/pages/Shop/categories copy/TagUI.vue';
+import AddTagUI from '@/pages/Shop/categories copy/add/addTagUI.vue';
+import EditTagsUI from '@/pages/Shop/categories copy/edit/EditTagsUI.vue';
 
 const routes = [
     { path: '/login', component: Login, beforeEnter: useGuestGuard },
@@ -33,6 +37,10 @@ const routes = [
     // Shop
     { path: '/shop/categories', component: CategoriesUI, beforeEnter: useGuard },
     { path: '/shop/categories/add', component: AddCategoriesUI, beforeEnter: useGuard },
+    { path: '/shop/categories/edit/:id', component: EditCategoriesUI, beforeEnter: useGuard },
+    { path: '/shop/tags', component: TagUI, beforeEnter: useGuard },
+    { path: '/shop/tag/add', component: AddTagUI, beforeEnter: useGuard },
+    { path: '/shop/tag/edit/:id', component: EditTagsUI, beforeEnter: useGuard },
 
 ];
 

@@ -5,7 +5,7 @@ import useToast from "../utils/useToast";
 import { getToken } from "@/utils/commonUtils";
 import { useFormValidation } from "../form/useFormValidation";
 import type { Field } from "@/models/CommonModels";
-
+import Swal from 'sweetalert2'; // Import SweetAlert2 for typing
 interface ValidationErrors {
     [key: string]: string;
 }
@@ -16,6 +16,7 @@ export function useApi<T>() {
     const serverURL = inject<string>("serverURL");
     const token = getToken();
     const {warning} = useToast()
+    const swal = inject('$swal') as typeof Swal | undefined; 
     const getHeaders = (
         isFormData: boolean = false
     ): Record<string, string> => ({
@@ -49,8 +50,7 @@ export function useApi<T>() {
         payload: Record<string, any>;
         isFormData?: boolean;
     }): Promise<any> => {
-        loading.value = true;
-        try {
+        loading.value = true;  try {
             let formData: FormData | Record<string, any> = payload;
             if (isFormData && !(payload instanceof FormData)) {
                 formData = new FormData();
@@ -58,7 +58,7 @@ export function useApi<T>() {
                     formData.append(key, payload[key]);
                 });
             }
-            const response = await axios.post(
+            const response:any = axios.post(
                 `${serverURL}/api/v1/${url}`,
                 formData,
                 {
@@ -68,7 +68,6 @@ export function useApi<T>() {
 
             data.value = response.data;
             error.value = null;
-
             return response;
         } catch (err) {
             const axiosError = err as AxiosError;
@@ -79,13 +78,20 @@ export function useApi<T>() {
         } finally {
             loading.value = false;
         }
+
     };
 
     const updateData = async (
+       {
+        url,
+        payload,
+        isFormData=false
+       }:{
         url: string | number,
         payload: Record<string, any>,
-        isFormData: boolean = false
-    ): Promise<void> => {
+        isFormData: boolean
+       }
+    ): Promise<any> => {
         loading.value = true;
         try {
             let formData: FormData | Record<string, any> = payload;
@@ -95,7 +101,7 @@ export function useApi<T>() {
                     formData.append(key, payload[key]);
                 });
             }
-            const response = await axios.put(
+            const response = await axios.patch(
                 `${serverURL}/api/v1/${url}`,
                 formData,
                 {
@@ -104,6 +110,7 @@ export function useApi<T>() {
             );
             data.value = response.data;
             error.value = null;
+            return response;
         } catch (err) {
             const axiosError = err as AxiosError;
             error.value = axiosError.response
@@ -114,24 +121,36 @@ export function useApi<T>() {
         }
     };
 
-    const deleteData = async (url: string | number): Promise<void> => {
-        loading.value = true;
-        try {
-           let res =  await axios.delete(`${serverURL}/api/v1/${url}`, {
-                headers: getHeaders(),
-            });
-            error.value = null;
-
-            return res.data
-        } catch (err) {
-            const axiosError = err as AxiosError;
-            error.value = axiosError.response
-                ? JSON.stringify(axiosError.response.data)
-                : axiosError.message;
-        } finally {
-            loading.value = false;
+    const deleteData = async (url: string | number): Promise<any> => {
+        const result = await Swal.fire({
+            title: "Are you sure you want to delete this item?",
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonText: "Delete",
+            cancelButtonText: "Cancel",
+            icon: "error",
+        });
+        if (result.isConfirmed) {
+            loading.value = true; // Start loading only if confirmed
+            try {
+               let response =  await axios.delete(`${serverURL}/api/v1/${url}`, {
+                    headers: getHeaders(),
+                });
+                error.value = null;
+                Swal.fire("Deleted!", "The item has been successfully deleted.", "success");
+                return response
+            } catch (err) {
+                const axiosError = err as AxiosError;
+                error.value = axiosError.response
+                    ? JSON.stringify(axiosError.response.data)
+                    : axiosError.message;
+                Swal.fire("Error", "Failed to delete the item. Please try again.", "error");
+            } finally {
+                loading.value = false; // Stop loading in all cases
+            }
         }
     };
+    
     const validateForm = (
         data: Record<string, any>,
         requiredFields: Field[]
@@ -147,7 +166,6 @@ export function useApi<T>() {
     
         return { isValid: missingFields.length === 0, missingFields };
     };
-    
     
     const handleSubmit = async ({
         url,
@@ -181,7 +199,7 @@ export function useApi<T>() {
                     formData.append(key, payload[key]);
                 });
             }
-    
+
             const response = await createData({
                 url: url,
                 payload: formData,
@@ -200,7 +218,56 @@ export function useApi<T>() {
             loading.value = false;
         }
     };
-    ;
+    const handleUpdate = async ({
+        url,
+        payload,
+        isFormData = false,
+        requiredFields,
+    }: {
+        url: string;
+        payload: any;
+        isFormData: boolean;
+        requiredFields: Field[];
+    }) => {
+        loading.value = true;
+        try {
+            const { isValid, missingFields } = validateForm(payload, requiredFields);
+    
+            if (!isValid) {
+                return {
+                    status: 'validation_failed',
+                    message: `Validation failed. Please fill all required fields: ${missingFields.join(', ')}.`,
+                    missingFields,
+                };
+            }
+    
+            let formData: FormData | Record<string, any> = payload;
+    
+            if (isFormData && !(payload instanceof FormData)) {
+                formData = new FormData();
+                Object.keys(payload).forEach((key) => {
+                    formData.append(key, payload[key]);
+                });
+            }
+    
+            const response = await updateData({
+                url: url,
+                payload: formData,
+                isFormData: isFormData,
+            });
+    
+            error.value = null;
+            return response;
+        } catch (err) {
+            const axiosError = err as AxiosError;
+            error.value = axiosError.response
+                ? JSON.stringify(axiosError.response.data)
+                : axiosError.message;
+            throw axiosError;
+        } finally {
+            loading.value = false;
+        }
+    };
     
 
     return {
@@ -213,5 +280,6 @@ export function useApi<T>() {
         deleteData,
         api,
         handleSubmit,
+        handleUpdate
     };
 }

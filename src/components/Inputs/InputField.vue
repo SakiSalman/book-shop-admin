@@ -6,7 +6,7 @@
     </label>
     <div
       :class="`flex items-stretch w-full appearance-none outline-0 text-black disabled:!opacity-25 transition-all duration-300 ease-in-out border
-      border-[#d1d0d0] hover:ring-1 hover:ring-primary disabled:!border-zinc-500 focus:border-zinc-200 focus:bg-transparent text-lg rounded-lg px-1.5 py-2 ${wrapperClass}`"
+      border-[#d1d0d0] hover:ring-1 hover:ring-primary disabled:!border-zinc-500 focus:border-zinc-200 focus:bg-transparent text-lg rounded-lg px-1.5 py-2 ${wrapperClass} ${disable && 'bg-gray-100'}`"
     >
       <!-- Icon Slot -->
       <div v-if="$slots.icon" class="flex items-center justify-center pr-2">
@@ -21,6 +21,7 @@
           v-model="internalValue"
           v-bind="$attrs"
           :class="`w-full bg-transparent h-full outline-none placeholder ${inputClass}`"
+          :disabled="disable"
         />
       </div>
     </div>
@@ -67,6 +68,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  disable: {
+    type : Boolean,
+    default : false
+  }
 });
 
 // Emits

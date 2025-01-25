@@ -8,6 +8,7 @@
     },
     "shop" : {
         "categories" : "categories",
-        "categoryFormData" : "categories/form-data"
+        "categoryFormData" : "categories/form-data",
+        "tags" : "tag"
     }
 }

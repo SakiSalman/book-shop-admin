@@ -3,27 +3,28 @@ import ButtonStyleOne from "@/components/buttons/ButtonStyleOne.vue";
 import { useApi } from "@/composables";
 import useToast from "@/composables/utils/useToast";
 import MainLayout from "@/layouts/MainLayout.vue";
-import type { CategoryItemModel } from "@/models/Products/CategoryModels";
+import type { TagItemModel } from "@/models/Products/TagModels";
 import { goRoute } from "@/utils/commonUtils";
 import { onMounted, ref } from "vue";
 const { fetchData, api, deleteData } = useApi()
-const { success, warning } = useToast()
+const { success} = useToast()
+const appURL = api.shop.tags
 
-const dataList = ref<CategoryItemModel[]>([])
+const dataList = ref<TagItemModel[]>([])
 const handleDelete = async (id: string) => {
     try {
-        let res: any = await deleteData(`${api.shop.categories}/${id}`)
-        if (res?.statusCode === 200) {
+        let res: any = await deleteData(`${appURL}/${id}`)
+        if (res?.data?.statusCode === 200) {
             success(res?.data?.message)
-            getAllCategories()
+            getTags()
         }
     } catch (error) {
         console.log("no data found!")
     }
 }
-const getAllCategories = async () => {
+const getTags = async () => {
     try {
-        const res: any = await fetchData(api.shop.categories);
+        const res: any = await fetchData(appURL);
         if (res?.data) {
             dataList.value = res.data
         }
@@ -32,7 +33,7 @@ const getAllCategories = async () => {
     }
 }
 onMounted(async () => {
-    await getAllCategories()
+    await getTags()
 })
 
 </script>
@@ -42,13 +43,13 @@ onMounted(async () => {
         <section class="grid grid-cols-1 gap-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <h1>Category List</h1>
-                    <p>Manage your categories</p>
+                    <h1>Tag List</h1>
+                    <p>Manage your tags</p>
                 </div>
                 <div>
                     <div class="flex flex-col md:flex-row justify-end gap-2 items-center">
                         <div class="flex justify-between items-center gap-5">
-                            <ButtonStyleOne :onclick="() => goRoute('/shop/categories/add')" label="Add New">
+                            <ButtonStyleOne :onclick="() => goRoute('/shop/tag/add')" label="Add New">
                                 <template #icon>
                                     <span><i class="bx bx-plus-circle"></i></span>
                                 </template>
@@ -77,11 +78,6 @@ onMounted(async () => {
                                 </th>
                                 <th class="p-2 whitespace-nowrap py-4">
                                     <div class="flex justify-between items-center">
-                                        <span>Categories</span>
-                                    </div>
-                                </th>
-                                <th class="p-2 whitespace-nowrap py-4">
-                                    <div class="flex justify-between items-center">
                                         <span> Name
                                         </span>
                                     </div>
@@ -91,7 +87,7 @@ onMounted(async () => {
                         </thead>
                         <tbody v-if="dataList.length == 0">
                             <tr>
-                                <td class="px-2 py-2" colspan="4">
+                                <td class="px-2 py-2" colspan="3">
                                     <p class="text-center">No Data Found!</p>
                                 </td>
                             </tr>
@@ -108,18 +104,12 @@ onMounted(async () => {
                                         </span>
                                     </label>
                                 </td>
-                                <td class="border-t border-b px-4 py-2 whitespace-nowrap">
-                                    <div class="flex items-center gap-3">
-                                        <img src="/images/products/expire-product-01.2a163a06.png" alt=""
-                                            class="w-16 h-16 object-cover" />
-                                    </div>
-                                </td>
                                 <td class="border-t border-b px-4 py-2 whitespace-nowrap text-xs md:text-sm">
                                     {{ item?.name }}
                                 </td>
                                 <td class="border-t border-b px-4 py-2 whitespace-nowrap text-end">
                                     <div class="flex items-center justify-end gap-2">
-                                        <router-link :to="`/shop/categories/edit/${item?._id}`"
+                                        <router-link :to="`/shop/tag/edit/${item?._id}`"
                                             class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primary hover:text-white transition-all duration-700">
                                             <i class="bx bxs-edit"></i>
                                         </router-link>
