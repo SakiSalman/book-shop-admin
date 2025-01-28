@@ -86,4 +86,5 @@ const handleAddNewImage = (e: Event) => {
          target.value = ""
     }
 };
+
 </script>

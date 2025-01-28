@@ -226,7 +226,7 @@ export function useApi<T>() {
     }: {
         url: string;
         payload: any;
-        isFormData: boolean;
+        isFormData?: boolean;
         requiredFields: Field[];
     }) => {
         loading.value = true;

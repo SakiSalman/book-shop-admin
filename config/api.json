@@ -9,6 +9,7 @@
     "shop" : {
         "categories" : "categories",
         "categoryFormData" : "categories/form-data",
-        "tags" : "tag"
+        "tags" : "tag",
+        "authors" : "authors"
     }
 }

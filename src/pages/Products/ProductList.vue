@@ -197,7 +197,7 @@ const hadndleFilter = () => {
                                 </td>
                                 <td class="border-t border-b px-4 py-2 whitespace-nowrap">
                                     <div class="flex items-center gap-3">
-                                        <img src="/images/products/expire-product-01.2a163a06.png" alt=""
+                                        <img src="/images/default.webp" alt=""
                                             class="w-16 h-16 object-cover" />
                                         <router-link to="/product">
                                             <p class="truncate max-w-fit text-xs md:text-sm hover:text-primary">

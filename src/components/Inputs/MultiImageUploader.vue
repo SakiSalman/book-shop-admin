@@ -33,7 +33,7 @@ const props = defineProps({
         type: Array as PropType<ImageInterface[]>,
         default: () => [
             {
-                path: "/images/products/expire-product-01.2a163a06.png"
+                path: "/images/default.webp"
             }
         ]
     },

@@ -81,7 +81,7 @@ const { fetchData, api, createData, loading } = useApi()
 const { error, warning, success } = useToast()
 // variables
 let dataList = reactive<AppSettingsModel>({
-    logo: '/images/products/expire-product-01.2a163a06.png',
+    logo: '/images/default.webp',
     primaryColor: '#b8070a',
     textColor: '#050505',
     desktopLogoWidth: 150,

@@ -53,11 +53,11 @@ const handleSubmitData = async () => {
         <section class="grid grid-cols-1 gap-8 pb-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <h1>Add Categories</h1>
+                    <h1>Add Tags</h1>
                 </div>
                 <div>
                     <div class="flex justify-end gap-2 items-center">
-                        <ButtonStyleOne label="Back to Categories" :onclick="handleBack"
+                        <ButtonStyleOne label="Back to Tags" :onclick="handleBack"
                             buttonClass="bg-primaryBlue border-primaryBlue">
                             <template #icon>
                                 <span class="flex justify-center items-center"><i class='bx bx-arrow-back'></i></span>

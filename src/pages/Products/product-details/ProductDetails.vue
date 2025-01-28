@@ -33,16 +33,16 @@
                 <div class="p-2 bg-white col-span-12 md:col-span-4 border border-gray-100 rounded-sm overflow-hidden">
                     <div class="grid grid-cols-12 gap-2">
                         <div class="col-span-12">
-                            <img class="w-full h-auto rounded-sm" src="/images/products/expire-product-01.2a163a06.png" alt="">
+                            <img class="w-full h-auto rounded-sm" src="/images/default.webp" alt="">
                         </div>
                         <div class="col-span-4">
-                            <img class="w-full h-auto rounded-sm" src="/images/products/expire-product-01.2a163a06.png" alt="">
+                            <img class="w-full h-auto rounded-sm" src="/images/default.webp" alt="">
                         </div>
                         <div class="col-span-4">
-                            <img class="w-full h-auto rounded-sm" src="/images/products/expire-product-01.2a163a06.png" alt="">
+                            <img class="w-full h-auto rounded-sm" src="/images/default.webp" alt="">
                         </div>
                         <div class="col-span-4">
-                            <img class="w-full h-auto rounded-sm" src="/images/products/expire-product-01.2a163a06.png" alt="">
+                            <img class="w-full h-auto rounded-sm" src="/images/default.webp" alt="">
                         </div>
                     </div>
                 </div>

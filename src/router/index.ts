@@ -14,9 +14,12 @@ import HeaderFooterCMS from '@/pages/CMS/HeaderFooterCMS/HeaderFooterCMS.vue';
 import CategoriesUI from '@/pages/Shop/categories/CategoriesUI.vue';
 import AddCategoriesUI from '@/pages/Shop/categories/add/AddCategoriesUI.vue';
 import EditCategoriesUI from '@/pages/Shop/categories/edit/EditCategoriesUI.vue';
-import TagUI from '@/pages/Shop/categories copy/TagUI.vue';
-import AddTagUI from '@/pages/Shop/categories copy/add/addTagUI.vue';
-import EditTagsUI from '@/pages/Shop/categories copy/edit/EditTagsUI.vue';
+import TagUI from '@/pages/Shop/tags/TagUI.vue';
+import AddTagUI from '@/pages/Shop/tags/add/AddTagUI.vue';
+import EditTagsUI from '@/pages/Shop/tags/edit/EditTagsUI.vue';
+import AuthorsUI from '@/pages/Shop/authors/AuthorsUI.vue';
+import AddAuthorsUI from '@/pages/Shop/authors/add/AddAuthorsUI.vue';
+import EditAuthorsUI from '@/pages/Shop/authors/edit/EditAuthorsUI.vue';
 
 const routes = [
     { path: '/login', component: Login, beforeEnter: useGuestGuard },
@@ -41,6 +44,9 @@ const routes = [
     { path: '/shop/tags', component: TagUI, beforeEnter: useGuard },
     { path: '/shop/tag/add', component: AddTagUI, beforeEnter: useGuard },
     { path: '/shop/tag/edit/:id', component: EditTagsUI, beforeEnter: useGuard },
+    { path: '/shop/authors', component: AuthorsUI, beforeEnter: useGuard },
+    { path: '/shop/authors/add', component: AddAuthorsUI, beforeEnter: useGuard },
+    { path: '/shop/authors/edit/:id', component: EditAuthorsUI, beforeEnter: useGuard },
 
 ];
 

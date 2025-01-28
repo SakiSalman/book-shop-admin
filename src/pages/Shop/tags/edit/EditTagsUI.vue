@@ -80,7 +80,7 @@ onMounted(() => {
                 </div>
                 <div>
                     <div class="flex justify-end gap-2 items-center">
-                        <ButtonStyleOne label="Back to Categories" :onclick="handleBack"
+                        <ButtonStyleOne label="Back to Tags" :onclick="handleBack"
                             buttonClass="bg-primaryBlue border-primaryBlue">
                             <template #icon>
                                 <span class="flex justify-center items-center"><i class='bx bx-arrow-back'></i></span>
@@ -98,7 +98,7 @@ onMounted(() => {
                         </div>
                 <!-- submit buttons -->
                 <div class="flex justify-center md:justify-end items-center">
-                    <ButtonStyleOne :isLoading="loading as boolean" label="Update Category" :onclick="handleSubmitData" />
+                    <ButtonStyleOne :isLoading="loading as boolean" label="Update Tag" :onclick="handleSubmitData" />
                 </div>
             </div>
         </section>

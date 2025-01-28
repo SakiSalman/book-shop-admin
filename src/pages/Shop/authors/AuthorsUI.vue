@@ -12,18 +12,18 @@ const { success, warning } = useToast()
 const dataList = ref<CategoryItemModel[]>([])
 const handleDelete = async (id: string) => {
     try {
-        let res: any = await deleteData(`${api.shop.categories}/${id}`)
+        let res: any = await deleteData(`${api.shop.authors}/${id}`)
         if (res?.statusCode === 200) {
             success(res?.data?.message)
-            getAllCategories()
+            getAllauthors()
         }
     } catch (error) {
         console.log("no data found!")
     }
 }
-const getAllCategories = async () => {
+const getAllauthors = async () => {
     try {
-        const res: any = await fetchData(api.shop.categories);
+        const res: any = await fetchData(api.shop.authors);
         if (res?.data) {
             dataList.value = res.data
         }
@@ -32,7 +32,7 @@ const getAllCategories = async () => {
     }
 }
 onMounted(async () => {
-    await getAllCategories()
+    await getAllauthors()
 })
 
 </script>
@@ -42,13 +42,13 @@ onMounted(async () => {
         <section class="grid grid-cols-1 gap-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <h1>Category List</h1>
-                    <p>Manage your categories</p>
+                    <h1>Author List</h1>
+                    <p>Manage your authors</p>
                 </div>
                 <div>
                     <div class="flex flex-col md:flex-row justify-end gap-2 items-center">
                         <div class="flex justify-between items-center gap-5">
-                            <ButtonStyleOne :onclick="() => goRoute('/shop/categories/add')" label="Add New">
+                            <ButtonStyleOne :onclick="() => goRoute('/shop/authors/add')" label="Add New">
                                 <template #icon>
                                     <span><i class="bx bx-plus-circle"></i></span>
                                 </template>
@@ -77,7 +77,7 @@ onMounted(async () => {
                                 </th>
                                 <th class="p-2 whitespace-nowrap py-4">
                                     <div class="flex justify-between items-center">
-                                        <span>Categories</span>
+                                        <span>Authors</span>
                                     </div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap py-4">
@@ -119,7 +119,7 @@ onMounted(async () => {
                                 </td>
                                 <td class="border-t border-b px-4 py-2 whitespace-nowrap text-end">
                                     <div class="flex items-center justify-end gap-2">
-                                        <router-link :to="`/shop/categories/edit/${item?._id}`"
+                                        <router-link :to="`/shop/authors/edit/${item?._id}`"
                                             class="rounded-md p-2 shadow-sm border border-slate-300 w-[30px] h-[30px] text-xl flex justify-center items-center hover:bg-primary hover:text-white transition-all duration-700">
                                             <i class="bx bxs-edit"></i>
                                         </router-link>

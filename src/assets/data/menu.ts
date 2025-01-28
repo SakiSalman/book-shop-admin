@@ -57,7 +57,7 @@ const menu = [
                 id: 3,
                 name: "Authors",
                 icon: "<i class='bx bxs-cube' ></i>",
-                path: "/authors",
+                path: "/shop/authors",
                 items: [
                 ],
             },

@@ -52,7 +52,7 @@
                         >
                             <div class="flex items-center gap-3">
                                 <img
-                                    src="/images/products/expire-product-01.2a163a06.png"
+                                    src="/images/default.webp"
                                     alt=""
                                     class="w-16 h-16 object-cover"
                                 />
